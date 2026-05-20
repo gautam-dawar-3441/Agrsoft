@@ -1,0 +1,26 @@
+.hero {
+    height: 90vh;
+    background: linear-gradient(135deg, #0d6efd, #6610f2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero h1 {
+    font-weight: 800;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.about-box {
+    border-left: 5px solid #0d6efd;
+    background: #f8f9fa;
+}

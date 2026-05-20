@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero text-center text-white d-flex align-items-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Empowering Business with Smart IT Solutions</h1>
+        <p class="lead mt-3">Think. Create. Succeed.</p>
+        <p>We deliver innovative solutions tailored for businesses of all sizes.</p>
+
+        <a class="btn btn-primary btn-lg mt-3" href="#">Let’s Talk</a>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section class="container mt-5">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <h2>Dedicated to Your Success</h2>
+            <p>
+                With a focus on creativity, strategy, and results, we help brands achieve their full potential.
+                Our team delivers tailored solutions that drive growth and visibility.
+            </p>
+            <button class="btn btn-outline-primary">Read More</button>
+        </div>
+
+        <div class="col-md-6">
+            <div class="about-box shadow-sm p-4">
+                <h5>Microsoft Dynamics 365 Finance & Operations</h5>
+                <p>We specialize in customization, integration, and optimization of D365 F&O systems.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section class="container mt-5">
+    <h2 class="text-center mb-4">Our Expertise</h2>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card p-3 shadow-sm">
+                <h5>D365 Customization</h5>
+                <p>Tailored modules and workflows for your business.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card p-3 shadow-sm">
+                <h5>System Integration</h5>
+                <p>Seamless integration with third-party tools and APIs.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card p-3 shadow-sm">
+                <h5>Automation</h5>
+                <p>Automate business processes for better efficiency.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="container mt-5">
+    <h2 class="text-center mb-4">FAQ</h2>
+
+    <div class="accordion" id="faq">
+
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#q1">
+                    What services do you offer?
+                </button>
+            </h2>
+            <div id="q1" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                    We specialize in Microsoft Dynamics 365 Finance & Operations customization.
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q2">
+                    Why choose AGRSOFT SOLUTIONS?
+                </button>
+            </h2>
+            <div id="q2" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    We deliver scalable, reliable, and business-focused IT solutions.
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
