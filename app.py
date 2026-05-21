@@ -89,6 +89,35 @@ def industries():
 
     # return render_template('contact.html')
     
+# @app.route('/contact', methods=['GET', 'POST'])
+# def contact():
+#     if request.method == 'POST':
+#         name = request.form.get('name')
+#         email = request.form.get('email')
+#         message = request.form.get('message')
+
+#         msg = Message(
+#             subject=f"Contact Form Message from {name}",
+#             sender=app.config['MAIL_USERNAME'],
+#             recipients=[app.config['MAIL_USERNAME']]
+#         )
+
+#         msg.body = f"""
+# Name: {name}
+# Email: {email}
+# Message: {message}
+# """
+
+#         try:
+#             mail.send(msg)
+#             print("EMAIL SENT SUCCESSFULLY")
+#             return render_template('contact.html', success="Message sent successfully!")
+#         except Exception as e:
+#             print("EMAIL FAILED:", e)
+#             return render_template('contact.html', success=f"Error: {e}")
+
+#     return render_template('contact.html')
+
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
@@ -96,27 +125,57 @@ def contact():
         email = request.form.get('email')
         message = request.form.get('message')
 
-        msg = Message(
-            subject=f"Contact Form Message from {name}",
+        # =========================
+        # 1. EMAIL TO YOU (ADMIN)
+        # =========================
+        admin_msg = Message(
+            subject=f"New Contact Form Message from {name}",
             sender=app.config['MAIL_USERNAME'],
             recipients=[app.config['MAIL_USERNAME']]
         )
 
-        msg.body = f"""
+        admin_msg.body = f"""
+New message received:
+
 Name: {name}
 Email: {email}
 Message: {message}
 """
 
-        try:
-            mail.send(msg)
-            print("EMAIL SENT SUCCESSFULLY")
-            return render_template('contact.html', success="Message sent successfully!")
-        except Exception as e:
-            print("EMAIL FAILED:", e)
-            return render_template('contact.html', success=f"Error: {e}")
+        mail.send(admin_msg)
+
+        # =========================
+        # 2. AUTO REPLY TO USER
+        # =========================
+        user_msg = Message(
+            subject="Thank you for contacting us!",
+            sender=app.config['MAIL_USERNAME'],
+            recipients=[email]
+        )
+
+        user_msg.body = f"""
+Hi {name},
+
+Thank you for contacting us. 🙌
+
+We have received your message:
+"{message}"
+
+Our team will get back to you shortly.
+
+Best regards,
+Your Company Team
+"""
+
+        mail.send(user_msg)
+
+        return render_template(
+            'contact.html',
+            success="Message sent successfully! Check your email."
+        )
 
     return render_template('contact.html')
 
 if __name__ == "__main__":
-    app.run()
+    # app.run()
+    app.run(host="0.0.0.0", port=10000)
