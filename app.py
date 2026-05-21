@@ -13,6 +13,7 @@ app.config['MAIL_USERNAME'] = 'khushi12981298@gmail.com'
 app.config['MAIL_PASSWORD'] = 'qvyl luad kplf rksz'
 
 mail = Mail(app)
+mail.init_app(app)
 
 @app.route('/')
 def home():
