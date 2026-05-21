@@ -2,6 +2,18 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+from flask_mail import Mail, Message
+
+# EMAIL CONFIG
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_USERNAME'] = 'khushi12981298@gmail.com'
+app.config['MAIL_PASSWORD'] = 'qvyl luad kplf rksz'
+
+mail = Mail(app)
+
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -22,7 +34,61 @@ def services():
 def industries():
     return render_template('industries.html')
 
-# ✅ FIXED CONTACT ROUTE (IMPORTANT)
+# FIXED CONTACT ROUTE 
+# @app.route('/contact', methods=['GET', 'POST'])
+# def contact():
+#     if request.method == 'POST':
+#         name = request.form.get('name')
+#         email = request.form.get('email')
+#         message = request.form.get('message')
+
+#         print("Name:", name)
+#         print("Email:", email)
+#         print("Message:", message)
+
+#         return render_template(
+#             'contact.html',
+#             success="Your message has been sent successfully!"
+#         )
+
+#     return render_template('contact.html')
+
+# FIXED CONTACT ROUTE 
+# EMAIL CONFIG
+# @app.route('/contact', methods=['GET', 'POST'])
+# def contact():
+#     if request.method == 'POST':
+#         name = request.form.get('name')
+#         email = request.form.get('email')
+#         message = request.form.get('message')
+
+#         # EMAIL SENDING PART 👇
+#         msg = Message(
+#             subject=f"Contact Form Message from {name}",
+#             sender=app.config['MAIL_USERNAME'],
+#             recipients=['khushi12981298@gmail.com']
+#         )
+
+#         msg.body = f"""
+#         Name: {name}
+#         Email: {email}
+#         Message: {message}
+#         """
+
+#         # mail.send(msg)
+#         try:
+#             mail.send(msg)
+#             print("EMAIL SENT SUCCESSFULLY")
+#         except Exception as e:
+#             print("EMAIL FAILED:", e)
+    
+#         return render_template(
+#             'contact.html',
+#             success="Message sent successfully!"
+#         )
+
+    # return render_template('contact.html')
+    
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
@@ -30,14 +96,25 @@ def contact():
         email = request.form.get('email')
         message = request.form.get('message')
 
-        print("Name:", name)
-        print("Email:", email)
-        print("Message:", message)
-
-        return render_template(
-            'contact.html',
-            success="Your message has been sent successfully!"
+        msg = Message(
+            subject=f"Contact Form Message from {name}",
+            sender=app.config['MAIL_USERNAME'],
+            recipients=[app.config['MAIL_USERNAME']]
         )
+
+        msg.body = f"""
+Name: {name}
+Email: {email}
+Message: {message}
+"""
+
+        try:
+            mail.send(msg)
+            print("EMAIL SENT SUCCESSFULLY")
+            return render_template('contact.html', success="Message sent successfully!")
+        except Exception as e:
+            print("EMAIL FAILED:", e)
+            return render_template('contact.html', success=f"Error: {e}")
 
     return render_template('contact.html')
 
